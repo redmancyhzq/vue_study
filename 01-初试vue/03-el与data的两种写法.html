@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <h1>{{name}}好美</h1>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.productionTip = false 
+
+  //el 的两种写法
+ /*  const v = new Vue({
+    //el: "#root",//第一种写法
+    data: {
+      name: "郁金香"
+    }
+  })
+  console.log(v);
+  v.$mount('#root')//第二种写法（更灵活） */
+
+  //data 的两种写法
+    Vue.config.productionTip = false //阻止 Vue 在启动时 生成生产提示
+  
+    new Vue({
+      el: "#root",
+    // 第一种： 对象式
+     /*  data: {
+        name: "郁金香"
+      } */
+
+    //第二种： 函数式（学组件时要用）
+    data(){
+      console.log('@@@@',this);// 此处的this指向Vue 实例
+      return{
+        name:'郁金香'
+      }
+    }
+    })
+  
+</script> 
+</html>

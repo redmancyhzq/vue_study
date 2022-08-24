@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据绑定</title>
+  <!-- 引入Vue -->
+  <script type="text/javascript" src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器-  -->
+    <!-- <div id="root">
+      单向数据绑定L: <input type="text" v-bind:value="name"><br>
+      双向数据绑定L: <input type="text" v-model:value="name">   
+    </div> -->
+
+    <!-- 简写 -->
+    <div id="root">
+      单向数据绑定L: <input type="text" :value="name"><br>
+      双向数据绑定L: <input type="text" v-model="name">   
+    </div>
+
+    <!-- 如下代码是错误的，因为v-model只能应用在表单类元素（输入类元素）上 -->
+       <!-- <h2 v-bind:x="name">你好啊</h2> -->
+</body>
+
+<script type="text/javascript">
+  Vue.config.productionTip = false //阻止 Vue 在启动时 生成生产提示
+
+  new Vue({
+    el: "#root",
+    data: {
+      name: "老胡"
+    }
+  })
+</script>
+</html>

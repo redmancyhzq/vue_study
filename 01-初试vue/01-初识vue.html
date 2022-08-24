@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初识vue</title>
+  <!-- 引入vue -->
+  <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="root">
+
+    <h1> 插值语法 (用于标签体内）</h1>
+    <h3>Hello,{{name}}</h3>
+
+
+    <h1>指令语法(v-XXX)(用于标签属性)</h1>
+    <a v-bind:href="search.url" v-bind:x="hello">点我去{{search.name}}搜索1</a>
+    <a :href="seaurl" :x="hello">点我去{{search.name}}搜索2</a>
+  </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false
+
+      //创建Vue实例
+      new Vue({
+        el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
+        data: {
+          name: '李总',
+          hello: '你好',
+          search: {
+            name: '百度',
+            url: 'http://www.baidu.com',
+          }
+        }
+      })
+    </script>
+</body>
+</html>

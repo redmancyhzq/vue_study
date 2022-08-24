@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>监视简写</title>
+  <script type="text/javascript" src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+<body>
+ <!-- 
+  Vue所管理的函数
+    methods
+    computed(set,get)
+    watch(handler)
+    (简写形式里面的函数)
+  -->
+  <div id="root">
+    <h2>今天天气很{{info}}</h2>
+    <button @click="changeWether" >切换天气</button>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.productionTip = false //阻止 Vue 在启动时 生成生产提示
+
+  const vm = new Vue({
+    el: "#root",
+    data: {
+      isHot: true,
+    },
+    computed: {
+      info() {
+        return this.isHot ? '凉爽' : '炎热'
+      }
+    },
+    methods: {
+      changeWether() {
+        this.isHot = !this.isHot
+      }
+    },
+    watch:{
+      //正常写法
+      /* isHot:{
+        //immediate:true, // 初始化时让handler调用一下
+        //deep: true , //深度监测
+        //handler 什么时候调用?当isHot发生改变时
+
+        //当配置项只有handler时才能简写
+        handler(newValue,oldValue){
+          console.log('isHot被修改了',newValue,oldValue);
+        }       
+      }, */
+
+      //简写
+      // isHot(newValue,oldValue) {
+      //   console.log('isHot被修改了',newValue,oldValue);
+      // }
+    }
+  })
+  //正常写法
+  // ***此处不能用箭头函数，this指向会有问题
+  // vm.$watch('isHot',{
+  //   handler(newValue,oldValue){
+  //     console.log('isHot被修改了',newValue,oldValue);
+  //   }  
+  // })
+
+  //简写
+  vm.$watch('isHot',function(newValue,oldValue){
+    console.log('isHot被修改了',newValue,oldValue);
+  })
+</script>
+</html>
