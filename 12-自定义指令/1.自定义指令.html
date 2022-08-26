@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- 引入Vue -->
+  <script type="text/javascript" src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+				需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
+				需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+				自定义指令总结：
+						一、定义语法：
+									(1).局部指令：
+												new Vue({															new Vue({
+													directives:{指令名:配置对象}   或   		directives{指令名:回调函数}
+													directives:{指令名:{}}   或   		directives{指令名:() {}}
+												}) 																		})
+									(2).全局指令：
+													Vue.directive(指令名,配置对象) 或   Vue.directive(指令名,回调函数)
+
+						二、配置对象中常用的3个回调：
+									(1).bind：指令与元素成功绑定时调用。
+									(2).inserted：指令所在元素被插入页面时调用。
+									(3).update：指令所在模板结构被重新解析时调用。
+
+						三、备注：
+									1.指令定义时不加v-，但使用时要加v-；
+									2.指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
+		-->
+    <!-- 准备好一个容器-  -->
+    <div id="root">
+      <h2>当前n的值是: <span v-text="n" ></span></h2>
+      <h2>放大十倍后的n的值是: <span v-big="n"></span></h2>
+      <!-- <h2>放大十倍后的n的值是: <span v-big-number="n"></span></h2> -->
+      <button @click="n++">点我n+1</button>
+      <hr>
+      <input type="text" v-fbind:value="n">
+    </div>
+</body>
+
+<script type="text/javascript">
+  Vue.config.productionTip = false //阻止 Vue 在启动时 生成生产提示
+ 
+  //全局指令定义
+  Vue.directive('fbind',{
+    bind(element,binding) {
+      element.value = binding.value
+    },
+    inserted(element,binding) {
+      element.focus()
+    },
+    update(element,binding) {
+      element.value = binding.value
+      element.focus()
+    },
+      })
+
+
+  new Vue({
+    el: "#root",
+    data: {
+      n:1,
+    },
+    directives: {
+      //写起来麻烦，不能处理细节问题
+      // big: {
+      //   k:v,
+      //   k:v,
+      //   k:v,
+      // }
+
+      // 'big-number'(element,binding){
+      //   element.innerText = binding.value * 10 //修改元素里面的文本内容 = 绑定值修改
+      //   console.log(big);
+      //   console.log(big-number,this);
+      // },
+
+      //需求简单，写法简单
+      big (element,binding) {
+        //console.dir(element,binding.value);
+        //console.log(element instanceof HTMLElement);//true,a是HTMLElement的实例，DOM元素
+        //原生DOM操作
+        element.innerText = binding.value * 10 //修改元素里面的文本内容 = 绑定值修改
+        console.log('big');
+        console.log('big',this);//注意此处的this是window
+      },
+
+      // big 函数何时被调用 ： 1. 指令与元素成功绑定（bind） 2. 指令所在的模板被重新解析时(update)
+      // big () {
+      //   n = n * 10
+      // }
+
+      //需求2需要写成一个对象式
+      // fbind(element,binding) {
+      //   element.value = binding.value
+      //   element.focus()
+      // },
+
+      // fbind: {
+      //   bind(element,binding) {
+      //     //console.log('bind');
+      //     console.log('fbind-bind',this);
+      //     element.value = binding.value
+      //   },
+      //   //指定所在元素被插入页面时被调用
+      //   //当获取焦点，拿到父元素的需求需要此函数
+      //   inserted(element,binding) {
+      //     //console.log("inserted");
+      //     console.log('fbind-inserted',this);
+      //     element.focus()
+      //   },
+      //   //指令所在的模板被重新解析时被调用
+      //   update(element,binding) {
+      //     console.log('fbind-update',this);
+      //     //console.log("update");
+      //     element.value = binding.value
+      //     element.focus()
+      //   },
+      // }
+    }
+  })
+</script>
+</html>
