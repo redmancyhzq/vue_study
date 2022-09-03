@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- 引入Vue -->
+  <script type="text/javascript" src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+      <h2>当前的n值是:{{n}}</h2>
+      <button @click="addOne">点我+1</button>
+      <button @click="bye">点我销毁vm</button>
+    </div>
+</body>
+
+<script type="text/javascript">
+  Vue.config.productionTip = false //阻止 Vue 在启动时 生成生产提示
+
+  new Vue({
+    el: "#root",
+    // template:`
+    //   <div>
+    //     <h2>当前的n值是:{{n}}</h2>
+    //    <button @click="addOne">点我+1</button>
+    //   </div>
+    //   `
+    data: {
+      n:1,
+    },
+    methods: {
+      addOne() {
+        console.log('add');
+        this.n++
+      },
+      bye() {
+        console.log('bye');
+        this.$destroy()
+      }
+    },
+    watch: {
+      n() {
+        console.log('n变了');
+      }
+  },
+  //8个生命周期和钩子
+    beforeCreate() {
+      console.log('beforeCreate');
+    },
+    created() {
+      console.log('created');
+      
+    },
+    beforeMount() {
+      console.log('beforeCreate');
+      
+    },
+    mounted() {
+      console.log('beforeCreate');
+
+    },
+    beforeUpdate() {
+      console.log('beforeUpdate');
+      //console.log(this.n);
+    },
+    updated() {
+      console.log('updeted');
+    },
+    beforeDestroy() {
+      console.log('beforeDestroy');
+      this.addOne()
+    },
+    destroyed() {
+      console.log('destroyed');
+    },
+  })
+</script>
+</html>
